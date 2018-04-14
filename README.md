@@ -4,7 +4,7 @@
 ### Installing dependencies
 - Prerequisite
 -- [ubuntu16.04](http://releases.ubuntu.com/16.04.4/) as a virtual server with Internet access
--- [setupServer](https://github.com/users-alex/linux/blob/master/bin/setupServer)
+-- [setupServer](https://github.com/users-alex/linux/blob/master/bin/setupServer) completed
 ```
 cd 01.setup
 ./01.install-dependencies
