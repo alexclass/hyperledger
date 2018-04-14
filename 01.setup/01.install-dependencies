@@ -1,0 +1,33 @@
+#
+# fabric
+#
+mkdir ~/fabric-tools &&  \
+( cd ~/fabric-tools && \
+  curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.zip && \
+  unzip fabric-dev-servers.zip  && \
+rm fabric-dev-servers.zip )
+#
+# composer
+#
+ curl -O https://hyperledger.github.io/composer/prereqs-ubuntu.sh
+ chmod u+x prereqs-ubuntu.sh
+ ./prereqs-ubuntu.sh
+ ( cd fabric-tools && \
+ ./downloadFabric.sh && \
+ ./startFabric.sh && \
+ ./createComposerProfile)
+#
+# sample networks
+#
+ git clone https://github.com/hyperledger/composer-sample-networks.git
+ cp -r ./composer-sample-networks/packages/basic-sample-network/ ./my-network
+ rm -rf composer-sample-networks
+ ( cd my-network && npm install )
+ npm install -g composer-cli && \
+ npm install -g composer-rest-server && \
+npm install -g composer-playground 
+#
+# compose network
+#
+composer card create -p connection.json -u PeerAdmin -c Admin@org1.example.com-cert.pem -k 114a -r PeerAdmin -r ChannelAdmin composer card import -f admin@<name>.card composer runtime install -c PeerAdmin@fabric-network -n <network name> composer network start -c PeerAdmin@fabric-network -a <name>.bna -A admin -S adminpw composer network deploy -p hlfv1 -a basic-sample-network.bna -i PeerAdmin composer-rest-server
+
